@@ -1,9 +1,16 @@
 package com.dashingqi.dqgradle
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 
-class MainActivity : AppCompatActivity() {
+import android.app.Activity
+import android.os.Bundle
+import com.dashingqi.router.annotaions.Destination
+
+
+@Destination(
+    url = "",
+    description = ""
+)
+class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

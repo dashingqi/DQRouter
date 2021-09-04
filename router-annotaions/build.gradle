@@ -1,0 +1,5 @@
+apply plugin:'java'
+
+// 设置源码兼容性
+targetCompatibility = JavaVersion.VERSION_1_7
+sourceCompatibility = JavaVersion.VERSION_1_7
