@@ -1,0 +1,80 @@
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.0.0"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+// =============基础语法==============
+// 字符串
+def name = "DashingQi"
+println("name is $name")
+
+// 列表
+def array = [1, 2, 3, 4, 5]
+println("array is $array")
+
+array.forEach {
+    println("item is $it")
+}
+
+// 循环
+for (int i = 0; i < 10; i++) {
+    println(" i == -> $i")
+}
+
+// 方法的定义
+def hello(String name) {
+    println("Hello, $name")
+}
+
+hello(name)
+
+// 进阶语法
+
+// DSL 领域专用语言
+
+// 实现DSL 闭包 匿名的弟阿玛快，可以接受参数，具有返回值，也可以被分配给变量
+
+// {[params ->] statements}
+
+def c = { println("Hello World ") }
+c()
+
+// 又一个参数的时候，参数可以忽略掉 默认名称就是 it
+def c2 = { println("it is $it") }
+c2("dashingqi")
+
+// 只有一个参数的时候，名称可以任意指定，但是it就不可使用了
+def c3 = { name1 -> println("name is $name1") }
+c3("dashingqi")
+
+// 定义多个参数，需要用逗号分隔
+def c4 = { name1, name2 ->
+    println("name1 = $name1 name2 = $name2")
+}
+
+c4("zhangqi", "dashingqi")
+
+def list = [1,2,3,4,5]
+// forEach 就是接受一个闭包
+list.forEach {
+
+}
+
+
+//////////////////////////////////////////
+
