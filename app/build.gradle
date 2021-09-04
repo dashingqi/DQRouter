@@ -96,6 +96,38 @@ class Android {
 }
 
 
+// setting.gradle
+
+// build.gradle (工程根目录，每一个子工程)
+
+// gradle.properties 用来配置开关型参数
+
+println "我是app build.gradle 目录"
+
+task myTask() {
+    doLast {
+        println "do last perfrom "
+    }
+}
+
+println "我是app子工程，我的工程路径是 ${project.projectDir}"
+
+task testTask() {
+    doLast {
+        println "我是 test task 任务"
+    }
+}
+
+task testTask1(){
+    // 依赖testTask任务
+    dependsOn testTask
+    doLast {
+        println "我是test task1 任务"
+    }
+}
+
+
+
 
 
 

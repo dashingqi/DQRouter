@@ -9,3 +9,31 @@ dependencyResolutionManagement {
 rootProject.name = "DQGradle"
 include ':app'
 
+println "我是settings gradle 文件"
+
+println "setting.gradle 的工程路径 ${rootProject.projectDir}"
+
+// 添加 构建过程的事件监听
+gradle.addBuildListener(new BuildAdapter(){
+    @Override
+    void settingsEvaluated(Settings settings) {
+        super.settingsEvaluated(settings)
+        println "初始化阶段完成"
+    }
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {
+        super.projectsEvaluated(gradle)
+        // 执行各个子Module下的build.gradle文件
+        println "配置阶段完成"
+        gradle.rootProject.childProjects.forEach{name,p ->
+            println "name is $name childProject path is ${p.getProjectDir()}"
+        }
+    }
+
+    @Override
+    void buildFinished(BuildResult result) {
+        super.buildFinished(result)
+        println "执行阶段完成"
+    }
+})
