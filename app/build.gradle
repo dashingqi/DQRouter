@@ -3,15 +3,23 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
+apply plugin:'com.dashingqi.router'
+
+// 用户需要做的
+router {
+    wikiDir getRootDir().absolutePath
+}
+
 
 
 android {
-    compileSdk 31
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.dashingqi.dqgradle"
-        minSdk 21
-        targetSdk 31
+        minSdkVersion 21
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
@@ -125,6 +133,9 @@ task testTask1(){
         println "我是test task1 任务"
     }
 }
+
+//// 引入脚本插件
+apply from: project.rootProject.file("other.gradle")
 
 
 
