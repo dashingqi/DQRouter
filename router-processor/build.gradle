@@ -1,0 +1,12 @@
+// 引入java插件
+apply plugin: 'java'
+
+targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+
+dependencies {
+    implementation project(':router-annotaions')
+    implementation 'com.google.auto.service:auto-service:1.0-rc6'
+    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc6'
+}
