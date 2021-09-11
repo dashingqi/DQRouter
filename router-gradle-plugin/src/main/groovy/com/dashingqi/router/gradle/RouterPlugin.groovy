@@ -12,12 +12,12 @@ class RouterPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
         println("I am from RouterPlugin ,apply from ${project.name}")
-        project.getExtensions().create("router", RouterExtension)
-        project.afterEvaluate {
-            // 拿到Extension
-            RouterExtension extension = project["router"]
-
-            println "用户设置的wiki路径为 == ${extension.wikiDir}"
-        }
+//        project.getExtensions().create("router", RouterExtension)
+//        project.afterEvaluate {
+//            // 拿到Extension
+//            RouterExtension extension = project["router"]
+//
+//            println "用户设置的wiki路径为 == ${extension.wikiDir}"
+//        }
     }
 }

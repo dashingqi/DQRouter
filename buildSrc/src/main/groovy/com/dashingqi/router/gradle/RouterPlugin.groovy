@@ -17,7 +17,7 @@ class RouterPlugin implements Plugin<Project> {
             // 拿到Extension
             RouterExtension extension = project["router"]
 
-            println "用户设置的wiki路径为 == ${extension.wikiDir}"
+//            println "用户设置的wiki路径为 == ${extension.wikiDir}"
         }
     }
 }

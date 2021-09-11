@@ -5,10 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.dashingqi.router.annotaions.Destination
 
 
-@Destination(
-    url = "router://oage-home",
-    description = "应用主页"
-)
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

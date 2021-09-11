@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
@@ -20,12 +21,18 @@ import javax.lang.model.element.TypeElement;
  */
 // 自动注册注解处理器
 @AutoService(Processor.class)
-class DestinationProcessor extends AbstractProcessor {
+public class DestinationProcessor extends AbstractProcessor {
 
     /**
      * TAG
      */
     private final static String TAG = "DestinationProcessor";
+
+    @Override
+    public synchronized void init(ProcessingEnvironment processingEnv) {
+        super.init(processingEnv);
+        System.out.println("init");
+    }
 
     /**
      * 告诉编译器，当前处理器支持的注解类型
@@ -46,17 +53,16 @@ class DestinationProcessor extends AbstractProcessor {
      */
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        System.out.println(TAG + ">>> process start ....");
-
-
         // 防止被重复调用
-        if (roundEnv.processingOver()){
+        if (roundEnv.processingOver()) {
             return false;
         }
 
+        System.out.println(TAG + ">>> process start ....");
+
         // 获取了标记 @Destination注解类的信息
-        Set<Element> allDestinationElements = (Set<Element>)
-                roundEnv.getElementsAnnotatedWith(Destination.class);
+        Set<? extends Element> allDestinationElements =
+                 roundEnv.getElementsAnnotatedWith(Destination.class);
         // 当没有收集到 @Destination注解的时候，直接结束执行
         if (allDestinationElements.size() < 1) {
             return false;
@@ -83,7 +89,7 @@ class DestinationProcessor extends AbstractProcessor {
 
         System.out.println(TAG + ">>> process finish ....");
 
-        return false;
+        return true;
     }
 
     @Override
@@ -91,8 +97,4 @@ class DestinationProcessor extends AbstractProcessor {
         return SourceVersion.RELEASE_8;
     }
 
-    @Override
-    public Set<String> getSupportedOptions() {
-        return super.getSupportedOptions();
-    }
 }
