@@ -12,6 +12,7 @@ public class Mapping1234 {
 
     public Map<String, String> getMapping() {
         HashMap<String, String> mapping = new HashMap<>();
+        mapping.put("url", "classPath");
         return mapping;
     }
 }
