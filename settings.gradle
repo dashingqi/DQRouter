@@ -1,5 +1,5 @@
 
-rootProject.name = "DQGradle"
+rootProject.name = "DQRouter"
 include ':app'
 include ':router-gradle-plugin'
 include ':router-annotaions'

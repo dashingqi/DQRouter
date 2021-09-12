@@ -1,9 +1,7 @@
-package com.dashingqi.dqgradle
+package com.dashingqi.router.dqgradle
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.dashingqi.router.annotaions.Destination
-
 
 
 class MainActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.dashingqi.dqgradle
+package com.dashingqi.router.dqgradle
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.dashingqi.dqgradle", appContext.packageName)
+        assertEquals("com.dashingqi.router.dqgradle", appContext.packageName)
     }
 }

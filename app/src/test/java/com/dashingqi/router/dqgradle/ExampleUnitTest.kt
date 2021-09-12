@@ -1,4 +1,4 @@
-package com.dashingqi.dqgradle
+package com.dashingqi.router.dqgradle
 
 import org.junit.Test
 

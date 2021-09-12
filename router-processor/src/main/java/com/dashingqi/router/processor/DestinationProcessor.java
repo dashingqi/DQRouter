@@ -68,6 +68,16 @@ public class DestinationProcessor extends AbstractProcessor {
             return false;
         }
 
+        //==================== 处理生成类文件
+        String className = "RoutersMapping_" + System.currentTimeMillis();
+
+        StringBuilder sb = new StringBuilder();
+        // 添加包名
+        sb.append("package com.dashingqi.router.mapping;\n\n");
+
+        // 添加导入的包名
+
+
         for (Element element : allDestinationElements) {
             final TypeElement typeElement = (TypeElement) element;
             // 尝试在当前类上 获取@Destination的信息

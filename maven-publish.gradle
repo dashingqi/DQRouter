@@ -1,0 +1,15 @@
+apply plugin:'maven'
+
+// 全局的Properties
+Properties globalProperties = new Properties()
+globalProperties.load(
+        project.rootProject.file('gradle.properties').newDataInputStream())
+// 读取全局通用属性值
+def VERSION_NAME = globalProperties.getProperty("VERSION_NAME")
+def POM_URL = globalProperties.getProperty("VERSION_NAME")
+def GROUP_ID = globalProperties.getProperty("GROUP_ID")
+
+Properties projectProperties = new Properties()
+// 拿到每一个项目中的 gradle.properties
+projectProperties.load(
+        project.file('gradle.properties').newDataInputStream())
