@@ -8,6 +8,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.3'
+        // 声明使用过Kotlin的插件
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }

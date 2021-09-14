@@ -66,6 +66,10 @@ public class DestinationProcessor extends AbstractProcessor {
 
         System.out.println(TAG + ">>> process start ....");
 
+        String rootDir = processingEnv.getOptions().get("root_project_dir");
+        System.out.println(rootDir + " <<<< ");
+
+
         // 获取了标记 @Destination注解类的信息
         Set<? extends Element> allDestinationElements =
                 roundEnv.getElementsAnnotatedWith(Destination.class);
@@ -111,8 +115,6 @@ public class DestinationProcessor extends AbstractProcessor {
                     .append("\"" + realPath + "\"")
                     .append(");\n\n");
 
-            sb.append("        return mapping;\n\n");
-            sb.append("    }\n\n");
 
             System.out.println(TAG + ">>> url = " + url);
             System.out.println(TAG + ">>> description = " + description);
@@ -120,6 +122,8 @@ public class DestinationProcessor extends AbstractProcessor {
 
         }
 
+        sb.append("        return mapping;\n\n");
+        sb.append("    }\n\n");
         sb.append("}");
 
         System.out.println(TAG + ">>> process finish ....");
