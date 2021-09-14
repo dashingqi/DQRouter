@@ -16,4 +16,5 @@ local.properties
 .idea
 repo
 build/
+router_mapping
 

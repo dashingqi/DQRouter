@@ -2,8 +2,13 @@ package com.dashingqi.router.processor;
 
 import com.dashingqi.router.annotaions.Destination;
 import com.google.auto.service.AutoService;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import java.io.Writer;
@@ -64,8 +69,10 @@ public class DestinationProcessor extends AbstractProcessor {
             return false;
         }
 
-        System.out.println(TAG + ">>> process start ....");
+        // 声明一个JsonArray 用于存储页面信息
+        JsonArray destinationJson = new JsonArray();
 
+        System.out.println(TAG + ">>> process start ....");
         String rootDir = processingEnv.getOptions().get("root_project_dir");
         System.out.println(rootDir + " <<<< ");
 
@@ -79,8 +86,6 @@ public class DestinationProcessor extends AbstractProcessor {
         }
 
         //==================== 处理生成类文件
-
-
         StringBuilder sb = new StringBuilder();
         // 添加包名
         sb.append("package com.dashingqi.router.mapping;\n\n");
@@ -115,6 +120,11 @@ public class DestinationProcessor extends AbstractProcessor {
                     .append("\"" + realPath + "\"")
                     .append(");\n\n");
 
+            JsonObject item = new JsonObject();
+            item.addProperty("url",url);
+            item.addProperty("description",description);
+            item.addProperty("realPath",realPath);
+            destinationJson.add(item);
 
             System.out.println(TAG + ">>> url = " + url);
             System.out.println(TAG + ">>> description = " + description);
@@ -150,6 +160,39 @@ public class DestinationProcessor extends AbstractProcessor {
                 e.printStackTrace();
             }
         }
+
+        // 写入Json文件到本地文件中
+        File rootDirFile = new File(rootDir);
+        if (!rootDirFile.exists()){
+            throw new RuntimeException("");
+        }
+        File routerFileDir = new File(rootDirFile, "router_mapping");
+        if (!routerFileDir.exists()) {
+            routerFileDir.mkdir();
+        }
+
+        File mappingFile = new File(routerFileDir,
+                "mapping_" + System.currentTimeMillis() + ".json");
+
+        // 写入Json内容到本地文件中
+        BufferedWriter bufferedWriter = null;
+        try {
+            bufferedWriter =
+                    new BufferedWriter(new FileWriter(mappingFile));
+            bufferedWriter.write(destinationJson.toString());
+            bufferedWriter.flush();
+        } catch (Exception e) {
+            throw new RuntimeException("Error when create json file", e);
+        } finally {
+            if (bufferedWriter != null) {
+                try {
+                    bufferedWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
 
         return true;
     }
