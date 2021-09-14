@@ -1,10 +1,13 @@
-
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
 }
-apply plugin:'com.dashingqi.router'
+apply plugin: 'com.dashingqi.router'
+
+router {
+    wikiDir getRootDir().absolutePath
+}
 
 android {
     compileSdkVersion 29
@@ -32,12 +35,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-    }
-
-    kapt {
-        arguments {
-            arg("root_project_dir", rootProject.projectDir.absolutePath)
-        }
     }
 }
 
