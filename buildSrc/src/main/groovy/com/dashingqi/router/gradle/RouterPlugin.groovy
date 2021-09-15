@@ -2,6 +2,7 @@ package com.dashingqi.router.gradle
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import groovy.json.JsonSlurper
 
 /**
  * RouterPlugin
@@ -35,6 +36,62 @@ class RouterPlugin implements Plugin<Project> {
             // 拿到Extension
             RouterExtension extension = project["router"]
             println "用户设置的wiki路径为 == ${extension.wikiDir}"
+
+            // 3. 在Javac任务执行后(compileDebugJavaWithJavac) 写成文档
+
+            project.tasks.findAll { task ->
+                task.name.startsWith('compile') &&
+                        task.name.endsWith('JavaWithJavac')
+            }.each { targetTask ->
+                targetTask.doLast {
+                    File routerMappingDir =
+                            new File(project.rootProject.projectDir, 'router_mapping')
+
+                    if (!routerMappingDir.exists()) {
+                        return
+                    }
+
+                    File[] childFiles = routerMappingDir.listFiles()
+                    if (childFiles.size() < 1) {
+                        return
+                    }
+                    // 构建文档内容
+
+                    StringBuilder markDownStringBuilder = new StringBuilder()
+
+                    markDownStringBuilder.append("# 页面文档 \n\n")
+
+                    childFiles.each { file ->
+                        // 仅读取.json文件
+                        if (file.name.endsWith(".json")) {
+                            JsonSlurper jsonSlurper = new JsonSlurper()
+                            def jsonContent = jsonSlurper.parse(file)
+                            jsonContent.each { item ->
+                                def url = item["url"]
+                                def description = item["description"]
+                                def realPath = item["realPath"]
+
+                                markDownStringBuilder.append("## $description \n")
+                                markDownStringBuilder.append("- url: $url \n")
+                                markDownStringBuilder.append("- realPath: $realPath \n\n")
+                            }
+                        }
+                    }
+
+                    // 写入文件
+
+                    File wikiFileDir = new File(extension.wikiDir)
+                    if (wikiFileDir.exists()) {
+                        wikiFileDir.mkdir()
+                    }
+
+                    File markDownFile = new File(wikiFileDir, "页面文档.md")
+                    if (markDownFile.exists()) {
+                        markDownFile.delete()
+                    }
+                    markDownFile.write(markDownStringBuilder.toString())
+                }
+            }
         }
     }
 }

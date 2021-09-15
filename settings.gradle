@@ -5,3 +5,8 @@ include ':router-gradle-plugin'
 include ':router-annotaions'
 include ':router-processor'
 
+// 拿到所有任务并在所有任务执行之前打印所有任务
+gradle.taskGraph.beforeTask { task ->
+    println("taskGroaph = $task")
+}
+
