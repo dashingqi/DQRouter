@@ -38,7 +38,10 @@ class RouterPlugin implements Plugin<Project> {
                 routerMappingDir.deleteDir()
             }
         }
-
+        if (!project.plugins.hasPlugin(AppPlugin)) {
+            // 将生成文档交由App工程来做
+            return
+        }
         project.getExtensions().create("router", RouterExtension)
         project.afterEvaluate {
             // 拿到Extension

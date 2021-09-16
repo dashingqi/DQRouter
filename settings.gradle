@@ -9,4 +9,4 @@ include ':router-processor'
 gradle.taskGraph.beforeTask { task ->
     println("taskGroaph = $task")
 }
-
+include ':lib-read'
