@@ -1,5 +1,8 @@
 package com.dashingqi.router.gradle
 
+import com.android.build.api.transform.Transform
+import com.android.build.gradle.AppExtension
+import com.android.build.gradle.AppPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import groovy.json.JsonSlurper
@@ -13,7 +16,12 @@ class RouterPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
 
-        println("I am from RouterPlugin ,apply from ${project.name}")
+        // 注册自定义的Transform
+        if (project.plugins.hasPlugin(AppPlugin)){
+            AppExtension appExtension = project.extensions.getByType(AppExtension)
+            Transform transform = new RouterMappingTransform()
+            appExtension.registerTransform(transform)
+        }
 
         // 1. 自动将路径参数传递到注解处理器中（无需用户手动）
         if (project.extensions.findByName("kapt") != null) {
