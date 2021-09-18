@@ -12,7 +12,7 @@ class RouterMapCollector {
     private static final String PACKAGE_NAME = "com/dashing/router/mapping"
 
     /** 自动生成映射类的类名前缀*/
-    private static final String CLASS_NAME_PRE = "RouterMapping_"
+    private static final String CLASS_NAME_PRE = "RoutersMapping_"
 
     /** 要收集类名的后缀*/
     private static final String CLASS_FILE_SUFFIX = ".class"
@@ -62,7 +62,7 @@ class RouterMapCollector {
      */
     void collectFromJarFile(File jarFile) {
 
-        Enumeration enumeration = (JarEntry) new JarFile(jarFile).entries()
+        Enumeration enumeration = new JarFile(jarFile).entries()
 
         while (enumeration.hasMoreElements()){
             JarEntry jarEntry = (JarEntry)enumeration.nextElement()

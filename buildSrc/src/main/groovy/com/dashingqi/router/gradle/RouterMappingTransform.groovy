@@ -63,10 +63,12 @@ class RouterMappingTransform extends Transform {
             throws TransformException, InterruptedException, IOException {
         super.transform(transformInvocation)
 
+        RouterMapCollector routerMapCollector = new RouterMapCollector()
         // 1. 遍历所有的Input
         transformInvocation.inputs.each {
             // 文件夹类型(将Input拷贝到目标目录)
             it.directoryInputs.each {directoryInput ->
+                routerMapCollector.collect(directoryInput.file)
                 def destDir = transformInvocation.outputProvider
                         .getContentLocation(directoryInput.name,
                                 directoryInput.contentTypes,
@@ -78,6 +80,7 @@ class RouterMappingTransform extends Transform {
 
             // jar类型 (将Input拷贝到目标目录)
             it.jarInputs.each { jarInput ->
+                routerMapCollector.collectFromJarFile(jarInput.file)
                 def dest = transformInvocation.outputProvider
                         .getContentLocation(jarInput.name,
                                 jarInput.contentTypes,
@@ -87,5 +90,7 @@ class RouterMappingTransform extends Transform {
                 FileUtils.copyFile(jarInput.file, dest)
             }
         }
+
+        println("router-map-collect ${routerMapCollector.getMapping()}")
     }
 }
