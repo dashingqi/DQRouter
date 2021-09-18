@@ -9,7 +9,7 @@ import java.util.jar.JarFile
 class RouterMapCollector {
 
     /** 自动生成映射类的包名*/
-    private static final String PACKAGE_NAME = "com/dashing/router/mapping"
+    private static final String PACKAGE_NAME = "com/dashingqi/router/mapping"
 
     /** 自动生成映射类的类名前缀*/
     private static final String CLASS_NAME_PRE = "RoutersMapping_"
