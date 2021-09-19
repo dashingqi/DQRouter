@@ -5,14 +5,15 @@ import java.util.Map;
 
 /**
  * @author : zhangqi
- * @desc : Mapping的测试文件
- * @time : 2021/9/12 11:08
+ * @desc :
+ * @time : 2021/9/19 09:19
  */
-public class Mapping1234 {
+public class RouterMappings {
 
     public Map<String, String> getMapping() {
         HashMap<String, String> mapping = new HashMap<>();
-        mapping.put("url", "classPath");
+        mapping.putAll(RouterMapping_1.getMapping());
+        mapping.putAll(RouterMapping_2.getMapping());
         return mapping;
     }
 }

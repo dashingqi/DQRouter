@@ -8,6 +8,9 @@ import com.android.build.api.transform.TransformInvocation
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.utils.FileUtils
 
+import java.util.jar.JarOutputStream
+import java.util.zip.ZipEntry
+
 /**
  * 建立Transform
  */
@@ -67,7 +70,7 @@ class RouterMappingTransform extends Transform {
         // 1. 遍历所有的Input
         transformInvocation.inputs.each {
             // 文件夹类型(将Input拷贝到目标目录)
-            it.directoryInputs.each {directoryInput ->
+            it.directoryInputs.each { directoryInput ->
                 routerMapCollector.collect(directoryInput.file)
                 def destDir = transformInvocation.outputProvider
                         .getContentLocation(directoryInput.name,
@@ -92,5 +95,32 @@ class RouterMappingTransform extends Transform {
         }
 
         println("router-map-collect ${routerMapCollector.getMapping()}")
+
+        //生成的文件保存到一个Jar文件中
+        File mappingJarFile = transformInvocation.outputProvider.getContentLocation(
+                "router_mapping",
+                getOutputTypes(),
+                getScopes(),
+                Format.JAR
+        )
+
+        println("${getName()} mappingJarFile = $mappingJarFile")
+
+        if (!mappingJarFile.getParentFile().exists()) {
+            mappingJarFile.getParentFile().mkdirs()
+        }
+
+        if (mappingJarFile.exists()) {
+            mappingJarFile.delete()
+        }
+
+        FileOutputStream fos = new FileOutputStream(mappingJarFile)
+        JarOutputStream jarOutputStream = new JarOutputStream(fos)
+        ZipEntry zipEntry = new ZipEntry(RouterMappingByteCodeBuilder.CLASS_NAME + ".class")
+        jarOutputStream.putNextEntry(zipEntry)
+        jarOutputStream.write(RouterMappingByteCodeBuilder.get(routerMapCollector.getMapping()))
+        jarOutputStream.closeEntry()
+        jarOutputStream.close()
+        fos.close()
     }
 }
