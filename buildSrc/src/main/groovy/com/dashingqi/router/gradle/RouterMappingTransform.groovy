@@ -96,17 +96,19 @@ class RouterMappingTransform extends Transform {
 
         println("router-map-collect ${routerMapCollector.getMapping()}")
 
-        //生成的文件保存到一个Jar文件中
+        // 生成的类保存到一个Jar文件中
         File mappingJarFile = transformInvocation.outputProvider.getContentLocation(
+                // 名称
                 "router_mapping",
                 getOutputTypes(),
                 getScopes(),
                 Format.JAR
         )
 
+        // 打印即将生成的Jar包位置
         println("${getName()} mappingJarFile = $mappingJarFile")
 
-        if (!mappingJarFile.getParentFile().exists()) {
+        if (mappingJarFile.getParentFile().exists()) {
             mappingJarFile.getParentFile().mkdirs()
         }
 
@@ -114,11 +116,14 @@ class RouterMappingTransform extends Transform {
             mappingJarFile.delete()
         }
 
+        // 将生成的字节码写入到本地文件中
         FileOutputStream fos = new FileOutputStream(mappingJarFile)
         JarOutputStream jarOutputStream = new JarOutputStream(fos)
-        ZipEntry zipEntry = new ZipEntry(RouterMappingByteCodeBuilder.CLASS_NAME + ".class")
+        ZipEntry zipEntry =
+                new ZipEntry(RouterMappingByteCodeBuilder.CLASS_NAME + ".class")
         jarOutputStream.putNextEntry(zipEntry)
-        jarOutputStream.write(RouterMappingByteCodeBuilder.get(routerMapCollector.getMapping()))
+        jarOutputStream.write(
+                RouterMappingByteCodeBuilder.get(routerMapCollector.getMapping()))
         jarOutputStream.closeEntry()
         jarOutputStream.close()
         fos.close()
