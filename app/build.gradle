@@ -51,6 +51,7 @@ dependencies {
     implementation project(":router-annotaions")
     kapt project(":router-processor")
     implementation project(":lib-read")
+    implementation project(":router-runtime")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

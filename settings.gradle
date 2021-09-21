@@ -10,3 +10,4 @@ gradle.taskGraph.beforeTask { task ->
     println("taskGroaph = $task")
 }
 include ':lib-read'
+include ':router-runtime'
