@@ -99,7 +99,7 @@ public class DestinationProcessor extends AbstractProcessor {
         sb.append("public class " + className + " {\n");
 
         // 构建方法信息
-        sb.append("    public Map<String, String> getMapping() {\n\n");
+        sb.append("    public static Map<String, String> get() {\n\n");
 
         sb.append("        HashMap<String, String> mapping = new HashMap<>();\n\n");
         for (Element element : allDestinationElements) {

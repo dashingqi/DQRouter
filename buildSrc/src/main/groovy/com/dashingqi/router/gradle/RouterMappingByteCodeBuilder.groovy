@@ -66,7 +66,7 @@ class RouterMappingByteCodeBuilder implements Opcodes {
 
 
         // 生成Get方法
-        mv = cw.visitMethod(ACC_PUBLIC,
+        mv = cw.visitMethod(ACC_PUBLIC + ACC_STATIC,
                 "get",
                 "()Ljava/util/Map;",
                 "()Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;",
@@ -95,7 +95,7 @@ class RouterMappingByteCodeBuilder implements Opcodes {
                     // 这个包名 和我们在注解处理器中声明的要一致
                     "com/dashingqi/router/mapping/$it",
                     // 调用那个方法
-                    "getMapping",
+                    "get",
                     // 签名
                     "()Ljava/util/Map;",
                     false)

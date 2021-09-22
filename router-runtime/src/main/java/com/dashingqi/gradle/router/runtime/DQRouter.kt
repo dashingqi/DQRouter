@@ -32,7 +32,8 @@ object DQRouter {
             val clazz = Class.forName(GENERATED_MAPPING)
             val method = clazz.getMethod("get")
             // 静态方法 传入null
-            val allMapping = method.invoke(null) as Map<String, String>
+            val allMappingMethod = method.invoke(null)
+            val allMapping = allMappingMethod as Map<String, String>
             if (allMapping?.size > 0) {
                 Log.d(TAG, "init:get all mapping success ")
                 allMapping.onEach {
