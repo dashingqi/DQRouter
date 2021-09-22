@@ -3,9 +3,9 @@ package com.dashingqi.router.gradle
 import com.android.build.api.transform.Transform
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.AppPlugin
+import groovy.json.JsonSlurper
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import groovy.json.JsonSlurper
 
 /**
  * RouterPlugin

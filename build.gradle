@@ -2,16 +2,27 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext.kotlin_version = '1.5.31'
-    ext.kotlin_version = '1.5.30'
     repositories {
         mavenCentral()
         google()
+//        /**
+//         * 1. 配置maven仓库地址
+//         * 这里可以是绝对路径也可以是相对
+//         */
+//        maven {
+//            url uri("/Users/zhangqi61/baidu/android_project/me/DQRouter/repo")
+//        }
     }
     dependencies {
+
         classpath 'com.android.tools.build:gradle:4.1.3'
         // 声明使用过Kotlin的插件
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//        /**
+//         * 3. 声明依赖的插件
+//         */
+//        classpath 'com.dashingqi.router:router-gradle-plugin:1.0.0'
     }
 }
 
@@ -19,6 +30,12 @@ allprojects {
     repositories {
         mavenCentral()
         google()
+//        /**
+//         * 2. 配置maven仓库地址
+//         */
+//        maven {
+//            url uri("/Users/zhangqi61/baidu/android_project/me/DQRouter/repo")
+//        }
     }
 }
 
