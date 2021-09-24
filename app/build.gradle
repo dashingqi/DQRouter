@@ -3,7 +3,9 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
 }
- apply plugin: 'com.dashingqi.router'
+apply plugin: 'com.dashingqi.router'
+// 从当前module的根目录下引入脚本文件
+apply from: project.file("read_local_properties.gradle")
 
 router {
     wikiDir getRootDir().absolutePath
@@ -50,6 +52,16 @@ dependencies {
     implementation project(":router-runtime")
 
     implementation JET_BRAINS_KOTLIN
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { details ->
+        String dependency = details.requested.toString()
+        if (dependency.contains("com.google.android")){
+            // 抛出异常，终止编译
+            throw new RuntimeException("不允许使用 $dependency")
+        }
+    }
 }
 
 
