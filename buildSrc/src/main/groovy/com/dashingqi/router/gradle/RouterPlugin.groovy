@@ -92,7 +92,7 @@ class RouterPlugin implements Plugin<Project> {
                     // 写入文件
 
                     File wikiFileDir = new File(extension.wikiDir)
-                    if (wikiFileDir.exists()) {
+                    if (!wikiFileDir.exists()) {
                         wikiFileDir.mkdir()
                     }
 

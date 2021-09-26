@@ -154,10 +154,12 @@ public class DestinationProcessor extends AbstractProcessor {
         } catch (Exception e) {
             throw new RuntimeException("Error when create file", e);
         } finally {
-            try {
-                fileWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (fileWriter != null) {
+                try {
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
