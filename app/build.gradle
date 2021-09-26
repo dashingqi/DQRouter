@@ -26,7 +26,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String","BUILD_TIME","\"${System.currentTimeMillis()}\"")
+            resValue("string","greeting","hello")
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
+            buildConfigField("String","BUILD_TIME","\"${System.currentTimeMillis()}\"")
+            resValue("string","greeting","hello")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -59,7 +67,7 @@ configurations.all {
         String dependency = details.requested.toString()
         if (dependency.contains("com.google.android")){
             // 抛出异常，终止编译
-            throw new RuntimeException("不允许使用 $dependency")
+            // throw new RuntimeException("不允许使用 $dependency")
         }
     }
 }
