@@ -69,14 +69,14 @@ object DQRouter {
         // router://dashingqi/gradle?name=zhangqi&age=18
         val scheme = targetUri.scheme
         val host = targetUri.host
-        var path = targetUri.path
+        val path = targetUri.path
 
         var targetActivityClassName = ""
         mapping.onEach {
             val templateUri = Uri.parse(it.key)
             val tScheme = templateUri.scheme
             val tHost = templateUri.host
-            var tPath = templateUri.path
+            val tPath = templateUri.path
 
             if (scheme == tScheme && host == tHost && path == tPath) {
                 targetActivityClassName = it.value
